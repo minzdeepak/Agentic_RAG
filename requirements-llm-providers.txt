@@ -1,0 +1,7 @@
+# Optional LLM provider SDKs
+# Install all:  pip install -r requirements-llm-providers.txt
+# Install one:  pip install google-generativeai>=0.8.0
+
+google-generativeai>=0.8.0   # LLM_PROVIDER=gemini
+openai>=1.40.0                # LLM_PROVIDER=openai
+anthropic>=0.34.0             # LLM_PROVIDER=claude

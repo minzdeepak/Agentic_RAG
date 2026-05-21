@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  # RAG System API
+  rag-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: rag-system-api
+    ports:
+      - "8000:8000"
+    environment:
+      - API_HOST=0.0.0.0
+      - API_PORT=8000
+      - EMBEDDING_MODEL=BAAI/bge-m3
+      - EMBEDDING_DEVICE=cpu  # Use 'cuda' if GPU available
+      - OLLAMA_BASE_URL=http://192.168.6.79:11434
+      - OLLAMA_MODEL=llama3.1
+      - LOG_LEVEL=INFO
+    volumes:
+      - ./uploads:/app/uploads
+      - ./chroma_db:/app/chroma_db
+      - ./logs:/app/logs
+    networks:
+      - rag-network
+    restart: unless-stopped
+    command: python main.py
+
+networks:
+  rag-network:
+    driver: bridge
